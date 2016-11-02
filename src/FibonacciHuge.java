@@ -23,7 +23,7 @@ public class FibonacciHuge {
 		FastScanner fs = new FastScanner(System.in);
 		long n = fs.nextLong();
 		long m = fs.nextLong();
-		System.out.println("Ans new --> " + getFibonacciHugeEfficient(n, m));
+		System.out.println(getFibonacciHugeEfficient(n, m));
 	}
 
 	static class FastScanner {
