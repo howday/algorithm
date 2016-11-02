@@ -1,33 +1,31 @@
-import java.math.BigInteger;
-import java.util.*;
+import java.util.Scanner;
 
 public class FibonacciSumLastDigit {
-    private static long getFibonacciSumNaive(long n) {
-
-	
-    	if (n <= 1)
+	private static long getFibonacciLastDigitFast(long n) {
+		if (n <= 1)
 			return n;
-    	
-    	List<BigInteger> bigInts = new ArrayList<>();
-    	bigInts.add(BigInteger.valueOf(0));
-    	bigInts.add(BigInteger.valueOf(1));
 
-		for (int k = 2; k <= n+2; k++) {
-			BigInteger prev = bigInts.get(k-1);
-			BigInteger prevPrev = bigInts.get(k-2);
-			bigInts.add(prev.add(prevPrev));
-		}
-		BigInteger sum = bigInts.get(bigInts.size()-1).subtract(BigInteger.valueOf(1));
-		System.out.println("Sum is : "+sum);
-		return sum.mod(BigInteger.valueOf(10)).longValue();
-    }
-    
-	    
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        long n = scanner.nextLong();
-        long s = getFibonacciSumNaive(n);
-        System.out.println("Last digit : "+s);
-    }
+		int m = (int) ((n + 2) % 60 + 60) % 60;
+		long[] mem = new long[m + 1];
+		for (int i = 1; i <= m; i++)
+			mem[i] = -1;
+		int res = (int) getFibonacciLastDigitTwoFast(m, mem);
+		return (res - 1) % 10;
+	}
+
+	private static long getFibonacciLastDigitTwoFast(int n, long[] mem) {
+		if (mem[n] != -1)
+			return mem[n];
+		if (n <= 1)
+			return n;
+		mem[n] = (getFibonacciLastDigitTwoFast(n - 1, mem) + getFibonacciLastDigitTwoFast(n - 2, mem)) % 100;
+		return mem[n];
+	}
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		long x = scanner.nextLong();
+		System.out.println(getFibonacciLastDigitFast(x));
+
+	}
 }
-
