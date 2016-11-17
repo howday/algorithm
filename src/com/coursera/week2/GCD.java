@@ -1,3 +1,4 @@
+package com.coursera.week2;
 import java.util.Scanner;
 
 public class GCD {
